@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>browser-signals demo</title>
+    <style>
+      body { font: 15px/1.5 system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; }
+      input { font: inherit; padding: 8px; width: 100%; box-sizing: border-box; margin: 6px 0 16px; }
+      pre { background: #f4f4f5; padding: 12px; overflow: auto; font-size: 12px; }
+      button { font: inherit; padding: 6px 14px; }
+    </style>
+    <script src="/dist/browser-signals.iife.min.js"></script>
+  </head>
+  <body>
+    <h1>browser-signals</h1>
+    <p>Type below, then press <b>Flush</b>. The payload shows your typing rhythm, never the text.</p>
+    <label>Name <input id="name" autocomplete="off" /></label>
+    <label>Password (ignored by the SDK) <input type="password" data-signals-ignore /></label>
+    <button id="flush">Flush</button>
+    <pre id="out">No payload yet.</pre>
+    <script>
+      const out = document.getElementById("out");
+      const client = BrowserSignals.init({
+        onPayload: (p) => (out.textContent = JSON.stringify(p, null, 2)),
+      });
+      document.getElementById("flush").onclick = () => client.flush();
+    </script>
+  </body>
+</html>

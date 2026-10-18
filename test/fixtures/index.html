@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>browser-signals test page</title>
+    <!-- Record globals BEFORE the SDK loads, so the test can prove it adds only one. -->
+    <script>window.__keysBefore = Object.keys(window);</script>
+    <script src="/dist/browser-signals.iife.min.js"></script>
+  </head>
+  <body>
+    <input id="name" placeholder="type here" />
+    <div data-signals-ignore><input id="secret" placeholder="ignored" /></div>
+    <script>
+      window.__payloads = [];
+      const params = new URLSearchParams(location.search);
+      window.__client = BrowserSignals.init({
+        requireConsent: params.has("consent"),
+        flushIntervalMs: 60_000,
+        onPayload: (p) => window.__payloads.push(p),
+      });
+    </script>
+  </body>
+</html>

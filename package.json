@@ -1,0 +1,62 @@
+{
+  "name": "browser-signals",
+  "version": "0.1.0",
+  "description": "A small, privacy-first Web SDK that collects device and behavioral signals for fraud and risk scoring.",
+  "license": "MIT",
+  "author": "Jaspreet Singh",
+  "type": "module",
+  "main": "./dist/browser-signals.esm.js",
+  "module": "./dist/browser-signals.esm.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/browser-signals.esm.js"
+    }
+  },
+  "unpkg": "./dist/browser-signals.iife.min.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf dist && rollup -c && tsc -p tsconfig.build.json",
+    "dev": "rollup -c --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "size": "size-limit",
+    "serve": "node scripts/serve.mjs",
+    "check": "npm run typecheck && npm test && npm run build && npm run size"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "supports es6-module"
+  ],
+  "size-limit": [
+    {
+      "name": "IIFE (script tag)",
+      "path": "dist/browser-signals.iife.min.js",
+      "limit": "5 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@babel/preset-typescript": "^7.24.0",
+    "@playwright/test": "^1.48.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-replace": "^6.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@size-limit/preset-small-lib": "^11.1.0",
+    "happy-dom": "^15.7.0",
+    "rollup": "^4.24.0",
+    "size-limit": "^11.1.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
